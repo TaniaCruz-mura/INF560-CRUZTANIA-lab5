@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fine;
+use App\Models\BookReview;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Loan;
@@ -51,6 +53,22 @@ class DatabaseSeeder extends Seeder
             'book_id'   => fn () => $bookIds->random(),
             'member_id' => fn () => $memberIds->random(),
             'loaned_by' => fn () => $users->random()->id,
+        ]);
+
+        // 8. Crear multas para préstamos overdue
+        $overdueLoans = Loan::where('status', 'overdue')->get();
+        foreach ($overdueLoans as $loan) {
+            Fine::factory()->create([
+                'loan_id' => $loan->id,
+            ]);
+        }
+
+        // 9. Crear 30 reseñas random
+        $bookIds   = $books->pluck('id');
+        $memberIds = $members->pluck('id');
+        BookReview::factory(30)->create([
+            'book_id'   => fn () => $bookIds->random(),
+            'member_id' => fn () => $memberIds->random(),
         ]);
     }
 }

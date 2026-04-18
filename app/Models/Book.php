@@ -76,4 +76,14 @@ public function loans(): \Illuminate\Database\Eloquent\Relations\HasMany
 {
  return $this->hasMany(Loan::class);
 }
+
+ public function reviews(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(BookReview::class);
+}
+
+public function getAverageRatingAttribute(): float
+{
+    return round($this->reviews()->avg('rating'), 2);
+}
 }

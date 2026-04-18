@@ -72,4 +72,8 @@ public function activeLoans(): \Illuminate\Database\Eloquent\Relations\HasMany
 {
  return $this->hasMany(Loan::class)->where('status', 'active');
 }
+public function bookReviews(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(BookReview::class);
+}
 } 

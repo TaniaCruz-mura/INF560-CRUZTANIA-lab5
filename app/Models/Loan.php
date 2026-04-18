@@ -56,4 +56,9 @@ public function book(): \Illuminate\Database\Eloquent\Relations\BelongsTo
 {
  return $this->belongsTo(Book::class);
 }
+
+public function fines(): \Illuminate\Database\Eloquent\Relations\HasMany
+{
+    return $this->hasMany(Fine::class);
+}
 }
